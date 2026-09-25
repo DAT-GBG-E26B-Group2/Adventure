@@ -5,40 +5,43 @@ public class UserInterface {
     static void runGame() {
         Scanner scanner = new Scanner(System.in);
 
+        //Create game controller
+        Adventure adventure = new Adventure();
+
         //Show the intro and starting room
         printIntro();
-        printCurrentRoom();
+        printCurrentRoom(adventure);
 
         //Main game loop
         while(true) {
             System.out.print("\nCommand -> ");
-            String cmd = scanner.nextLine().strip();
+            String cmd = scanner.nextLine().strip().toLowerCase();
 
             //Check which command player entered
             if ("exit".equalsIgnoreCase(cmd)) break;
 
             else if ("help".equalsIgnoreCase(cmd)) printHelp();
-            else if ("look".equalsIgnoreCase(cmd)) printCurrentRoom();
+            else if ("look".equalsIgnoreCase(cmd)) printCurrentRoom(adventure);
 
             else if ("go north".equalsIgnoreCase(cmd) ||
                     "north".equalsIgnoreCase(cmd) ||
                     "n".equalsIgnoreCase(cmd)) {
-                move(Adventure.goNorth());
+                move(adventure, "north");
             }
             else if ("go east".equalsIgnoreCase(cmd) ||
                     "east".equalsIgnoreCase(cmd) ||
                     "e".equalsIgnoreCase(cmd)) {
-                move(Adventure.goEast());
+                move(adventure, "east");
             }
             else if ("go south".equalsIgnoreCase(cmd) ||
                     "south".equalsIgnoreCase(cmd) ||
                     "s".equalsIgnoreCase(cmd)) {
-                move(Adventure.goSouth());
+                move(adventure, "south");
             }
             else if ("go west".equalsIgnoreCase(cmd) ||
                     "west".equalsIgnoreCase(cmd) ||
                     "w".equalsIgnoreCase(cmd)) {
-                move(Adventure.goWest());
+                move(adventure, "west");
             }
 
             //unknown command entered
@@ -78,8 +81,8 @@ public class UserInterface {
     }
 
     //Print name and description of current room
-    private static void printCurrentRoom() {
-        Room currentRoom = Adventure.getCurrentRoom();
+    private static void printCurrentRoom(Adventure adventure) {
+        Room currentRoom = adventure.getCurrentRoom();
 
         System.out.println();
         System.out.println(currentRoom.getName());
@@ -87,9 +90,9 @@ public class UserInterface {
     }
 
     //Check if move was success and then move player to new room + show new room info. Else show error message
-    private static void move(boolean canMove) {
-        if (canMove) {
-            printCurrentRoom();
+    private static void move(Adventure adventure, String direction) {
+        if (adventure.move(direction)) {
+            printCurrentRoom(adventure);
         } else {
             System.out.println("You cannot go that way");
         }
