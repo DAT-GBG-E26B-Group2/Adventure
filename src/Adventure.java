@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Adventure {
 
     //Player controlled by game
@@ -10,6 +12,21 @@ public class Adventure {
 
         //Create player in room1
         player = new Player(startingRoom);
+    }
+
+    //Tell player to try taking and item
+    public Item takeItem(String shortName) {
+        return player.takeItem(shortName);
+    }
+
+    //Tell player to try dropping an item
+    public Item dropItem(String shortName) {
+        return player.dropItem(shortName);
+    }
+
+    //Return players inventory
+    public ArrayList<Item> getInventory() {
+        return player.getInventory();
     }
 
     // Move player

@@ -6,11 +6,27 @@ public class Map {
         Room room2 = new Room("Dead Forest", "Tall, pale trees surround you. \nTheir branches twist toward the dark sky, and something seems to move between them.");
         Room room3 = new Room("Abandoned Camp", "A small research camp stands deserted. \nThe tents are torn open, and strange footprints disappear into the darkness.");
         Room room4 = new Room("Wreckage", "A broken section of the spacecraft lies half-buried in the ground. \nSparks flicker from damaged cables inside the wreck.");
-        Room room5 = new Room("Ancient Vault", "You enter a cold chamber built from smooth black stone. \nStrange symbols glow faintly across the walls.");
+        Room room5 = new Room("Ancient Vault", "You enter a cold chamber built from smooth black stone. \nStrange symbols glow faintly across the walls. \nAt the center of the chamber stands a massive sealed door. \nA narrow indentation is carved into its surface, surrounded by the same strange symbols that cover the walls.");
         Room room6 = new Room("Research Outpost", "The outpost is dark and silent. \nBroken equipment covers the floor, and deep scratches mark the metal walls.");
         Room room7 = new Room("Dark Cavern", "The cave descends into darkness. \nWater drips from the ceiling, and a low growl echoes somewhere in the distance.");
         Room room8 = new Room("Alien Ruins", "Massive stone structures rise from the ground. \nTheir architecture is unlike anything made by humans.");
         Room room9 = new Room("Signal Tower", "A damaged communication tower reaches toward the sky. \nIts control panel still flickers with a weak blue light.");
+
+        //Add different items to each room
+        room1.addItem(new Item("helmet", "a cracked space helmet"));
+        room1.addItem(new Item("photo", "a faded crew photograph"));
+        room2.addItem(new Item("crystal", "a faintly glowing crystal"));
+        room3.addItem(new Item("relic", "a strange obsidian relic"));
+        room3.addItem(new Item("journal", "a damaged research journal"));
+        room4.addItem(new Item("battery", "a partially charged power cel"));
+        room4.addItem(new Item("scanner", "a broken handheld scanner"));
+        room6.addItem(new Item("badge", "a blood-stained ID badge"));
+        room6.addItem(new Item("container", "a sealed specimen container"));
+        room7.addItem(new Item("tooth", "a large serrated tooth"));
+        room7.addItem(new Item("bone", "an unusually long bone"));
+        room8.addItem(new Item("tablet", "an ancient stone tablet"));
+        room8.addItem(new Item("orb", "a perfectly smooth metal orb"));
+        room9.addItem(new Item("transmitter", "a damaged signal transmitter"));
 
         //Connect rooms horizontally
         connectEastWest(room1, room2);

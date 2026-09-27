@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+
 public class Room {
 
     //Basic info about the room
     private String name;
     private String description;
+
+    private ArrayList<Item> items;
 
     //Reference to other rooms
     private Room north;
@@ -10,10 +14,36 @@ public class Room {
     private Room south;
     private Room west;
 
-    //Create room with a name and description
+    //Create room with a name and description and also an empty list of items
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+        items = new ArrayList<>();
+    }
+
+    //Add item object to room (array list)
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    //Removes item object from room
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    //Return list of items in room
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    //Search room for item by shortname.
+    //Return matching Item object or
+    //return null if no matching item exists
+    public Item findItem(String shortName) {
+        for (Item item: items) {
+            if(item.getShortName().equalsIgnoreCase(shortName)) return item;
+        }
+        return null;
     }
 
     public String getName() {
