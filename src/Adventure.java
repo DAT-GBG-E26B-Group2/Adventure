@@ -29,6 +29,12 @@ public class Adventure {
         return player.getInventory();
     }
 
+    //Return players current health
+    public int getHealth() { return player.getHealth(); }
+
+    //Make player eat item/food
+    public EatResult eat(String shortName) { return player.eat(shortName); }
+
     // Move player
     public boolean move(String direction) {
         return player.move(direction);

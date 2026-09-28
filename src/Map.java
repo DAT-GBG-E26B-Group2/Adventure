@@ -28,6 +28,16 @@ public class Map {
         room8.addItem(new Item("orb", "a perfectly smooth metal orb"));
         room9.addItem(new Item("transmitter", "a damaged signal transmitter"));
 
+        //Add different foods to rooms
+        room1.addItem(new Food("ration", "a sealed emergency ration", 20));
+        room2.addItem(new Food("fruit", "a dark blue alien fruit", 15));
+        room2.addItem(new Food("mushroom", "a pale glowing mushroom", -35));
+        room3.addItem(new Food("bar", "an old protein bar", 10));
+        room4.addItem(new Food("gel", "a tube of nutritional gel", 25));
+        room6.addItem(new Food("meat", "a sealed piece of unknown meat", -20));
+        room7.addItem(new Food("egg", "a small translucent egg", -50));
+        room8.addItem(new Food("berries", "a handful of silver berries", 30));
+
         //Connect rooms horizontally
         connectEastWest(room1, room2);
         connectEastWest(room2, room3);

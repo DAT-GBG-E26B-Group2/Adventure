@@ -17,6 +17,9 @@ public class Player {
     //Store all items currently carried by player
     private ArrayList<Item> inventory = new ArrayList<>();
 
+    //Player starts game with 100 health
+    private int health = 100;
+
     //Try taking item from the room player currently is in
     public Item takeItem(String shortName) {
         //Search current room for the item
@@ -66,6 +69,40 @@ public class Player {
     public ArrayList<Item> getInventory() {
         return inventory;
     }
+
+    //Return players current health
+    public int getHealth() {
+        return health;
+    }
+
+    //Method used to make player eat a food and check that it is food before eating
+    public EatResult eat(String shortName) {
+        //Search player inventory for item
+        Item item = findItem(shortName);
+
+        // If it wasnt in inventory then search the current room
+        if (item == null) item = currentRoom.findItem(shortName);
+
+        //Item doesnt exists in inventory or current room
+        if(item == null) return EatResult.NOT_FOUND;
+
+        //Item exists but isnt food
+        if(!(item instanceof Food)) return EatResult.NOT_FOOD;
+
+        //Item is a Food  so we cast it to Food object
+        Food food = (Food) item;
+
+        //CHange players health
+        health += food.getHealthPoints();
+
+        //Remove food from inventory if it is there
+        if (inventory.contains(item)) inventory.remove(item);
+        //Else remove it from current room
+        else currentRoom.removeItem(item);
+
+        return EatResult.EATEN;
+    }
+
 
     // Move the player to the given direction
     public boolean move(String direction) {

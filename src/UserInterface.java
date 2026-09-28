@@ -74,6 +74,31 @@ public class UserInterface {
                     }
                 }
             }
+            else if ("health".equalsIgnoreCase(cmd)) {
+                printHealth(adventure);
+            }
+            //Check if command starts with "eat"
+            else if (cmd.startsWith("eat ")) {
+                //take everything after "eat " <_- that will be item
+                String itemName = cmd.substring(4);
+
+                int healthBefore = adventure.getHealth();
+
+                EatResult result = adventure.eat(itemName);
+
+                int healthAfter = adventure.getHealth();
+
+                switch (result) {
+                    case NOT_FOUND -> System.out.println("There is nothing like "+itemName+" to eat around here");
+                    case NOT_FOOD -> System.out.println("You cannot eat "+itemName);
+                    case EATEN -> {
+                        if (healthAfter > healthBefore) System.out.println("You eat "+itemName+". You feel a little better.");
+                        else System.out.println("You eat "+itemName+". That was a mistake.");
+
+                        printHealth(adventure);
+                    }
+                }
+            }
 
             //unknown command entered
             else System.out.println("Unknown command. Type 'help' to see available commands.");
@@ -109,6 +134,8 @@ public class UserInterface {
         System.out.println("  inventory     - Show your inventory");
         System.out.println("  take <item>   - Add item to your inventory");
         System.out.println("  drop <item>   - Remove item from your inventory");
+        System.out.println("  health        - Show your current health");
+        System.out.println("  eat <food>    - Eat food to replenish your health");
         System.out.println("  look          - Look around");
         System.out.println("  help          - Show commands");
         System.out.println("  exit          - Quit the game");
@@ -131,6 +158,20 @@ public class UserInterface {
 
         }
     }
+
+    //Prints players health together with a description
+    private static void printHealth(Adventure adventure) {
+        int health = adventure.getHealth();
+
+        System.out.print("Health: " +health+ " - ");
+
+        if (health >= 100) System.out.println("you are in perfect health");
+        else if (health >= 50) System.out.println("you are in good health, but avoid fighting right now");
+        else if (health >= 25) System.out.println("you are wounded - find something healthy to eat");
+        else if (health >= 1) System.out.println("you are barely alive");
+        else System.out.println("you should be dead");
+    }
+
 
     //Check if move was success and then move player to new room + show new room info. Else show error message
     private static void move(Adventure adventure, String direction) {
