@@ -20,6 +20,9 @@ public class Player {
     //Player starts game with 100 health
     private int health = 100;
 
+    //PLayers equipped weapon ( is null when created)
+    private Weapon equippedWeapon;
+
     //Try taking item from the room player currently is in
     public Item takeItem(String shortName) {
         //Search current room for the item
@@ -37,13 +40,15 @@ public class Player {
         return item;
     }
 
-    //Try dropping item from players inventory
+    //Try dropping item from players inventory / equiped weapon
     public Item dropItem(String shortName) {
         //Search player inventory
         Item item = findItem(shortName);
 
         //Drop item if it is found in inventory
         if(item != null) {
+            //Remove item(weapon) from, åæayers equipped weapon
+            if (item == equippedWeapon) equippedWeapon = null;
             //Remove item from players inventory
             inventory.remove(item);
             //Add same item to the current room
@@ -103,6 +108,37 @@ public class Player {
         return EatResult.EATEN;
     }
 
+    //Method to equip player with the weapon from inventory
+    public EquipResult equip(String shortName) {
+        //Search player inventory
+        Item item = findItem(shortName);
+
+        //If weapon doesnt exist
+        if (item == null) return EquipResult.NOT_FOUND;
+
+        //Item is not Weapon
+        if (!(item instanceof Weapon)) return EquipResult.NOT_WEAPON;
+
+        //Equip Weapon for player
+        equippedWeapon = (Weapon) item;
+
+        return EquipResult.EQUIPPED;
+    }
+
+    //Return players currently equipped weapon
+    public Weapon getEquippedWeapon() { return equippedWeapon; }
+
+    //Method used to make player attack with weapon
+    public AttackResult attack() {
+        //Check if player has equiped weapon
+        if (equippedWeapon == null) return AttackResult.NO_WEAPON;
+
+        //Check if player weapon has ammo left
+        if(!(equippedWeapon.canUse())) return AttackResult.NO_USES_LEFT;
+
+        equippedWeapon.use();
+        return AttackResult.ATTACKED;
+    }
 
     // Move the player to the given direction
     public boolean move(String direction) {

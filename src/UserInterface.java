@@ -67,6 +67,11 @@ public class UserInterface {
 
                 if(inventory.isEmpty()) System.out.println("Your inventory is empty.");
                 else {
+                    //Show players equipped weapon
+                    Weapon equippedWeapon = adventure.getEquippedWeapon();
+
+                    if (equippedWeapon != null) System.out.println("Equipped: " +equippedWeapon.getShortName());
+
                     System.out.println("You are carrying:");
 
                     for (Item item : inventory) {
@@ -99,6 +104,31 @@ public class UserInterface {
                     }
                 }
             }
+            //Check if command starts with "equip"
+            else if (cmd.startsWith("equip ")) {
+                //take everything afer "equip " <- that will be weapon name
+                String itemName = cmd.substring(6);
+
+                EquipResult result = adventure.equip(itemName);
+
+                switch (result) {
+                    case NOT_FOUND -> System.out.println("You dont have a weapon like " +itemName);
+                    case NOT_WEAPON -> System.out.println(itemName + " is not a weapon");
+                    case EQUIPPED -> System.out.println("You have equipped "+itemName);
+                }
+            }
+            else if ("attack".equalsIgnoreCase(cmd)) {
+
+                AttackResult result = adventure.attack();
+
+                Weapon weapon = adventure.getEquippedWeapon();
+
+                switch (result) {
+                    case NO_WEAPON -> System.out.println("You dont have a weapon equipped");
+                    case NO_USES_LEFT -> System.out.println(weapon.getShortName() + " has no uses left");
+                    case ATTACKED -> System.out.println("You "+weapon.getAttack()+" "+weapon.getShortName()+" at the empty air. "+weapon.getUsesLeft());
+                }
+            }
 
             //unknown command entered
             else System.out.println("Unknown command. Type 'help' to see available commands.");
@@ -127,18 +157,20 @@ public class UserInterface {
     //Print all available commands
     private static void printHelp() {
         System.out.println("Commands:");
-        System.out.println("  go north      - Move north");
-        System.out.println("  go east       - Move east");
-        System.out.println("  go south      - Move south");
-        System.out.println("  go west       - Move west");
-        System.out.println("  inventory     - Show your inventory");
-        System.out.println("  take <item>   - Add item to your inventory");
-        System.out.println("  drop <item>   - Remove item from your inventory");
-        System.out.println("  health        - Show your current health");
-        System.out.println("  eat <food>    - Eat food to replenish your health");
-        System.out.println("  look          - Look around");
-        System.out.println("  help          - Show commands");
-        System.out.println("  exit          - Quit the game");
+        System.out.println("  go north          - Move north");
+        System.out.println("  go east           - Move east");
+        System.out.println("  go south          - Move south");
+        System.out.println("  go west           - Move west");
+        System.out.println("  inventory         - Show your inventory");
+        System.out.println("  take <item>       - Add item to your inventory");
+        System.out.println("  drop <item>       - Remove item from your inventory");
+        System.out.println("  health            - Show your current health");
+        System.out.println("  eat <food>        - Eat food to replenish your health");
+        System.out.println("  equip <weapon>    - Equip weapon from your inventory");
+        System.out.println("  attack            - Attack enemy with equipped weapon");
+        System.out.println("  look              - Look around");
+        System.out.println("  help              - Show commands");
+        System.out.println("  exit              - Quit the game");
     }
 
     //Print name and description of current room

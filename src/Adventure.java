@@ -35,6 +35,15 @@ public class Adventure {
     //Make player eat item/food
     public EatResult eat(String shortName) { return player.eat(shortName); }
 
+    //Make player equip weapon
+    public EquipResult equip(String shortName) { return player.equip(shortName); }
+
+    //Get players equipped weapon
+    public Weapon getEquippedWeapon() { return player.getEquippedWeapon(); }
+
+    //Make player attack
+    public AttackResult attack() { return player.attack(); }
+
     // Move player
     public boolean move(String direction) {
         return player.move(direction);

@@ -38,6 +38,13 @@ public class Map {
         room7.addItem(new Food("egg", "a small translucent egg", -50));
         room8.addItem(new Food("berries", "a handful of silver berries", 30));
 
+        //Add different weapons to some rooms
+        room1.addItem(new RangedWeapon("flaregun", "a damaged emergency flare gun", 2));
+        room3.addItem(new MeleeWeapon("machete", "a heavy survival machete"));
+        room4.addItem(new RangedWeapon("pistol", "a battered plasma pistol", 5));
+        room6.addItem(new RangedWeapon("rifle", "an experimental pulse rifle", 3));
+        room8.addItem(new MeleeWeapon("blade", "a strange alien blade"));
+
         //Connect rooms horizontally
         connectEastWest(room1, room2);
         connectEastWest(room2, room3);
